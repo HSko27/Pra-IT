@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <label for="input">Jak dlouhého?</label>
+    <input type="number" id="input" />
+    <p id="show"></p>
+
+    <script>
+      const textToShow = document.getElementById("show");
+      const input = document.getElementById("input");
+
+      input.addEventListener("input", () => {
+        textToShow.innerHTML = "";
+        for (index = 0; index < input.value; index++) {
+          show.innerHTML += ".";
+        }
+      });
+    </script>
+  </body>
+</html>

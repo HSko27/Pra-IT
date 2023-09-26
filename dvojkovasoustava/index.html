@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Převod do dvojkové soustavy</title>
+</head>
+<body>
+    <h1>Převod do dvojkové soustavy</h1>
+    <form>
+        <label for="cislo">Zadejte číslo:</label>
+        <input type="text" id="cislo" name="cislo">
+        <input type="button" value="Převést" onclick="prevestNaDvojkovou()">
+    </form>
+    <p>Dvojková reprezentace: <span id="vysledek"></span></p>
+
+    <script>
+        function prevestNaDvojkovou() {
+            const cisloInput = document.getElementById("cislo");
+            const vysledekSpan = document.getElementById("vysledek");
+
+            const cislo = cisloInput.value;
+
+            const dvojkova = (parseInt(cislo)).toString(2);
+            vysledekSpan.textContent = dvojkova;
+        }
+    </script>
+</body>
+</html>
