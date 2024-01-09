@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pexeso</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .board {
+        display: grid;
+        grid-template-columns: repeat(6, 100px);
+        grid-template-rows: repeat(6, 100px);
+        gap: 5px;
+      }
+      .card {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2em;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="mb-10 flex justify-around">
+      <a class="bg-stone-600 hover:bg-stone-700" href="index.html"><button>Back</button></a>
+      <h1>Ultra Mega Giga Hry</h1>
+    </header>
+
+    <div class="board justify-center" id="board"></div>
+
+    <script>
+      const board = document.getElementById("board");
+      const cardPairs = 18; // Počet párů karet (6x6)
+      const values = [];
+
+      // Vytvoření pole čísel pro karty
+      for (let i = 0; i < cardPairs; i++) {
+        values.push(i + 1, i + 1); // Každé číslo přidáme dvakrát pro každý pár
+      }
+
+      // Náhodné zamíchání čísel v poli
+      for (let i = values.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [values[i], values[j]] = [values[j], values[i]];
+      }
+
+      // Generování karet s přiřazenými náhodnými čísly
+      values.forEach((value, index) => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.dataset.index = value;
+        board.appendChild(card);
+      });
+
+      let flippedCards = [];
+      let matchedCards = [];
+      const cards = Array.from(document.querySelectorAll(".card"));
+
+      cards.forEach((card) => {
+        card.addEventListener("click", handleCardClick);
+      });
+
+      function handleCardClick(event) {
+        const clickedCard = event.target;
+        const index = clickedCard.dataset.index;
+
+        if (!flippedCards.includes(clickedCard) && flippedCards.length < 2) {
+          flippedCards.push(clickedCard);
+          clickedCard.textContent = index;
+
+          if (flippedCards.length === 2) {
+            setTimeout(checkMatch, 1000);
+          }
+        }
+      }
+
+      function checkMatch() {
+        const [firstCard, secondCard] = flippedCards;
+        const firstIndex = firstCard.dataset.index;
+        const secondIndex = secondCard.dataset.index;
+
+        if (firstIndex === secondIndex) {
+          matchedCards.push(firstCard, secondCard);
+          if (matchedCards.length === cards.length) {
+            alert("Gratulujeme! Otočili jste všechny páry karet.");
+          }
+        } else {
+          flippedCards.forEach((card) => {
+            card.textContent = "";
+          });
+        }
+
+        flippedCards = [];
+      }
+    </script>
+  </body>
+</html>
