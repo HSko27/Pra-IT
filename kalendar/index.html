@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Login</title>
+  </head>
+  <body class="bg-gray-900">
+      <div
+        class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
+      >
+        <a
+          href="#"
+          class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+        >
+          <img
+            class="w-12 h-12 mr-2"
+            src="https://images.vexels.com/media/users/3/203578/isolated/lists/7df619fefdf9931d9dab73be162d27c2-bamboo-light-green-single-thick-icon.png"
+            alt="logo"
+          />
+          Bambus Calendary
+        </a>
+        <div
+          class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
+        >
+          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <h1
+              class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+            >
+              Login
+            </h1>
+            <form class="space-y-4 md:space-y-6" action="#">
+              <div>
+                <label
+                  for="email"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >E-mail</label
+                >
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="john@example.com"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="password"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Password</label
+                >
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="••••••••"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                class="w-full bg-gray-700 py-2 rounded-lg hover:bg-gray-600 hover:rounded-xl duration-300 ease-in-out text-gray-50"
+                onclick="loginFunc()"
+              >
+                Sign in
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    <script>
+
+        const db = [
+            {username: "username1", password: "password1"},
+            {username: "username2", password: "password2"},
+            {username: "username3", password: "password3"},
+            {username: "username4", password: "password4"},
+            {username: "username5", password: "password5"},
+        ]
+
+        const loginFunc = () => {
+            const login = document.getElementById("email").value;
+        const pass = document.getElementById("password").value;
+        const user = db.filter((user) => user.username.toLowerCase() ===login.toLowerCase() && user.password == pass);
+        if(!user[0]) {
+            alert("wrong life")
+        }else {
+            
+            localStorage.setItem("isLogin", "true")
+            window.location.href = "./home.html"
+
+        }
+        }
+
+    </script>
+  </body>
+</html>
