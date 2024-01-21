@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Chessboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px auto;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            text-align: center;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .editable {
+            cursor: pointer;
+            background-color: #fff;
+        }
+
+        .editable:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .editable input {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            padding: 5px;
+            background-color: inherit;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .edit-buttons {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .edit-buttons button {
+            padding: 8px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        function generateTable(rows, cols) {
+            let table = document.createElement('table');
+            for (let i = 0; i < rows; i++) {
+                let row = table.insertRow();
+                for (let j = 0; j < cols; j++) {
+                    let cell = row.insertCell();
+                    cell.classList.add('editable');
+                    cell.setAttribute('contenteditable', 'true');
+                    cell.setAttribute('oninput', 'validateInput(this)');
+                }
+            }
+            document.body.appendChild(table);
+            addEditButtons();
+        }
+
+        function addEditButtons() {
+            let editButtons = document.createElement('div');
+            editButtons.classList.add('edit-buttons');
+            editButtons.innerHTML = `
+                <button onclick="confirmChanges()">podtvrdit zmeny</button>
+                <button onclick="cancelChanges()">zrusit zmeny</button>
+            `;
+            document.body.appendChild(editButtons);
+        }
+
+        function validateInput(cell) {
+            // Simple validation, allowing only non-empty alphanumeric input
+            let input = cell.innerText.trim();
+            cell.innerText = input;
+        }
+
+        function confirmChanges() {
+            alert('Potrdit zmeny');
+        }
+
+        function cancelChanges() {
+            alert('Zrusit zmeny!');
+        }
+
+        const rows = prompt("řadek");
+        const cols = prompt("Sloupec");
+
+        generateTable(rows, cols);
+    </script>
+
+</body>
+</html>
